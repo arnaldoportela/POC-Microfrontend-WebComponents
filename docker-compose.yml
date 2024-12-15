@@ -1,0 +1,25 @@
+version: "3.5"
+
+services:
+  app-shell:
+    container_name: app-shell
+    build:
+      context: ./shell
+      dockerfile: Dockerfile
+    volumes:
+      - "./shell:/usr/src/app"
+      - "/usr/src/app/node_modules"
+    image: app-a
+    ports:
+      - "4200:4200"
+  app-a:
+    container_name: app-a
+    build:
+      context: ./app-a
+      dockerfile: Dockerfile
+    image: shell
+    volumes:
+      - "./app-a:/usr/src/app"
+      - "/usr/src/app/node_modules"
+    ports:
+      - "4201:4201"
